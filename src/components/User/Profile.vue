@@ -1,61 +1,103 @@
 <template >
-<center><h1>Comming Soon</h1></center>
+  <div>
+    <!-- <center><h1>Comming Soon</h1></center> -->
+    <v-container fluid>
+      <v-layout justify-center class="my-5">
+        <v-flex xs12 sm6>
+          <div style="background-color: #78909c; padding :20px;">
+            <h2 style="  text-align: center; color:white;">{{user.name}} 's profile</h2>
+          </div>
+          <v-card id="contP">
+            <v-container>
+              <v-layout row wrap class="mb-4 ma-4">
+                <div>
+                  <img src="static/person.png" height="200" />
+                </div>
+                <div style="margin-left:10%;">
+                  <p>
+                    Name :
+                    <input
+                      :disabled="disabled == 0 ? true : false"
+                      v-model="name"
+                      required
+                      type="text"
+                    />
+                  </p>
+                  <p>
+                    Surname :
+                    <input
+                      :disabled="disabled == 0 ? true : false"
+                      v-model="surname"
+                      required
+                      type="text"
+                    />
+                  </p>
+                  <p>
+                    Email :
+                    <input disabled v-model="email" required type="text" />
+                  </p>
 
-  <!-- <v-container fluid  >
-    <v-layout  justify-center class="my-5">
-      <v-flex xs12 sm6  >
-
-        <div style="background-color: #78909c; padding :20px;">
-          <h2  style="  text-align: center; color:white;"> Profile Page </h2>
-        </div>
-            
-        <v-card  id="contP"   >
-          <v-container  >
-            <v-card-title><h2>{{user.name}} 's profile </h2> </v-card-title>
-            <v-layout row wrap class=" mb-4  ma-4">
-              <div style="margin-left: 10%;">
-                <img src="static/person.png"   height="100">
-              </div>
-              <div style="margin-left: 10%;" >                
-                <p>Name : {{user.name}}</p>  
-                <p>Surname : {{user.surname}}</p> 
-                <p>Email : {{user.email}}</p> 
-              </div >
-              <div style="margin-left: 10%;">
-                <p>Type : {{user.type}}</p> 
-                <p>Section : {{user.sectionLVL}}</p>
-                <p>Lesson : {{user.lessonLVL}}</p>  
-              </div>
-            </v-layout>
-          </v-container> 
-        </v-card>
-
-      </v-flex>         
-    </v-layout>
-  </v-container> -->
+                  <p>
+                    Type :
+                    <input disabled v-model="type" required type="text" />
+                  </p>
+                  <p>
+                    Section :
+                    <input disabled v-model="section" required type="text" />
+                  </p>
+                  <p>
+                    Lesson :
+                    <input disabled v-model="lesson" required type="text" />
+                  </p>
+                </div>
+              </v-layout>
+              <v-btn
+                v-if="!disabled"
+                @click="disabled = (disabled + 1) % 2"
+                class="right align blue lighten-3"
+              >Edit</v-btn>
+              <v-btn v-if="disabled" @click="update" class="right align blue lighten-3">Update</v-btn>
+              <v-btn v-if="disabled" @click="back" class="right align red lighten-3">Back</v-btn>
+            </v-container>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-        
+      disabled: 0,
+      name: this.$store.getters.user.name,
+      surname: this.$store.getters.user.surname,
+      email: this.$store.getters.user.email,
+      type: this.$store.getters.user.type,
+      section: this.$store.getters.user.sectionLVL,
+      lesson: this.$store.getters.user.lessonLVL
     };
   },
-  mounted: function() {
-  
-  },
+  mounted: function() {},
   computed: {
-    user(){
-      return this.$store.getters.user ;
+    user() {
+      return this.$store.getters.user;
     },
-    loading() {      
+    loading() {
       return this.$store.getters.loading;
     }
   },
   watch: {},
   methods: {
-
+    back() {
+      this.disabled = (this.disabled + 1) % 2;
+      this.name = this.$store.getters.user.name;
+      this.surname = this.$store.getters.user.surname;
+    },
+    update() {
+      this.disabled = (this.disabled + 1) % 2;
+    }
   }
 };
 </script>
@@ -63,13 +105,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#vcont{
-  height: 100vh;  
-  background-color:#e1ecf1;
+#vcont {
+  height: 100vh;
+  background-color: #e1ecf1;
 }
-#contP{
-  background-color:white;
-
+#contP {
+  background-color: white;
 }
 h1,
 h2 {

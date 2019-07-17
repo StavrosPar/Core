@@ -67,7 +67,7 @@
         <v-menu v-if="userIsAuthenticated" offset-y>
           <v-btn slot="activator" flat>
             <v-icon left>account_circle</v-icon>
-            {{this.user.name+" "+this.user.surname}}
+            {{this.user.name}}
           </v-btn>
           <v-list>
             <v-list-tile @click="goToProfile">
@@ -182,7 +182,7 @@ export default {
     },
     goToProfile() {
       let email = this.user.email;
-      this.$router.push({ name: "user", params: { email } });
+      this.$router.push("/profile");
     }
   },
   name: "App"
