@@ -236,7 +236,6 @@ export const store = new Vuex.Store({
     //gets all lessons of  the selected module
     getLessons({ commit }, payload) {
       commit("setLoading", true);
-
       axios
         .get(`http://localhost:5000/api/lessons?moduleParentID=${payload}`)
         .then(response => {
@@ -293,6 +292,33 @@ export const store = new Vuex.Store({
         });
       commit("setLoading", false);
     },
+    //update user's profile with new name and surname
+    editUserProfile({ commit }, payload) {
+      commit("setLoading", true);
+      var temp = payload.id;
+      console.log("Edit User's Profile with ID: ", temp);
+      axios
+        .put(`http://localhost:5000/api/users/${temp}`, {
+          id: payload.id,
+          email: payload.email,
+          name: payload.name,
+          surname: payload.surname,
+          status: payload.status,
+          type: payload.type,
+          registration_date: payload.registration_date,
+          moduleLVL: payload.moduleLVL,
+          lessonLVL: payload.lessonLVL,
+          chapterLVL: payload.chapterLVL,
+          sectionLVL: payload.sectionLVL
+        })
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(err => {});
+
+      commit("setLoading", false);
+    },
+
     //
     changeUserLVLs({ commit }, payload) {
       commit("setLoading", true);

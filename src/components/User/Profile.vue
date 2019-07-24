@@ -17,6 +17,7 @@
                   <p>
                     Name :
                     <input
+                      autofocus
                       :disabled="disabled == 0 ? true : false"
                       v-model="name"
                       required
@@ -92,10 +93,27 @@ export default {
   methods: {
     back() {
       this.disabled = (this.disabled + 1) % 2;
+
       this.name = this.$store.getters.user.name;
       this.surname = this.$store.getters.user.surname;
     },
     update() {
+      var tempUser = {
+        id: this.$store.getters.user.id,
+        email: this.$store.getters.user.email,
+        name: this.name,
+        surname: this.surname,
+        status: this.$store.getters.user.status,
+        type: this.$store.getters.user.type,
+        registration_date: this.$store.getters.user.registration_date,
+        moduleLVL: this.$store.getters.user.moduleLVL,
+        lessonLVL: this.$store.getters.user.lessonLVL,
+        chapterLVL: this.$store.getters.user.chapterLVL,
+        sectionLVL: this.$store.getters.user.sectionLVL
+      };
+      this.$store.getters.user.name = tempUser.name;
+      this.$store.getters.user.surname = tempUser.surname;
+      this.$store.dispatch("editUserProfile", tempUser);
       this.disabled = (this.disabled + 1) % 2;
     }
   }
