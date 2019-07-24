@@ -318,6 +318,15 @@ export const store = new Vuex.Store({
 
       commit("setLoading", false);
     },
+    //Store a new Course
+    storeNewCourse({ commit }, payload) {
+      commit("setLoading", true);
+
+      axios.post(`http://localhost:5000/api/course/`, {
+        name: payload.name
+      });
+      commit("setLoading", fasle);
+    },
 
     //
     changeUserLVLs({ commit }, payload) {

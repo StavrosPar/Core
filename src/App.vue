@@ -140,7 +140,8 @@ export default {
       if (this.userIsAuthenticated) {
         if (this.userIsTeacher) {
           menuItems = [
-            { icon: "web", title: "Teacher Page", link: "/teachercourse" }
+            { icon: "web", title: "Teacher Page", link: "/teachercourse" },
+            { icon: "add_box", title: "Add Course", link: "/addcourse" }
             // { icon: "person", title: "Profile", link: "/profile" }
           ];
         } else {

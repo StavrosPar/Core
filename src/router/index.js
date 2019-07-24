@@ -6,6 +6,7 @@ import Profile from "@/components/User/Profile";
 import Signin from "@/components/User/Signin";
 import Signup from "@/components/User/Signup";
 import TeacherCourse from "@/components/Teacher/TeacherCourse";
+import AddCourse from "@/components/Teacher/AddCourse";
 import Authguard from "./auth-guard";
 import Lessons from "@/components/Browse/Lessons";
 import LabExercise from "@/components/Play/LabExercise";
@@ -50,6 +51,12 @@ export default new Router({
       path: "/teachercourse",
       name: "TeacherCourse",
       component: TeacherCourse,
+      beforeEnter: Authguard
+    },
+    {
+      path: "/addcourse",
+      name: "AddCourse",
+      component: AddCourse,
       beforeEnter: Authguard
     },
     {

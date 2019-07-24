@@ -139,6 +139,17 @@ app.put("/api/users/:temp", (req, res) => {
   res.status(200).json({ message: "done" });
 });
 
+//insert a new course
+app.post("/api/course/", (req, res) => {
+  console.log("POST to course pou bazw -> ", req.body.name);
+  connection.query(
+    "INSERT INTO course(name) VALUES  ('" + req.body.name + "')",
+    function(err, rows, fields) {
+      if (err) throw err;
+    }
+  );
+  res.status(200).json({ message: "inserted" });
+});
 //insert a user
 app.post("/api/users/:temp", (req, res) => {
   let id = req.params.temp;
@@ -176,7 +187,6 @@ app.post("/api/users/:temp", (req, res) => {
 
   res.status(200).json({ message: "inserted" });
 });
-
 //get multiple choise questions answers
 app.post("/api/multiplechoise", (req, res) => {
   console.log("server");
@@ -253,6 +263,7 @@ app.post("/api/challenge/module/cq", (req, res) => {
   );
 });
 //get challenge  once multiple choise questions answers
+
 app.get("/api/challenge/once/mc", (req, res) => {
   console.log("server");
   connection.query("SELECT * FROM challengemconce ", function(
@@ -264,6 +275,14 @@ app.get("/api/challenge/once/mc", (req, res) => {
 
     res.status(200).json(rows);
     console.log("The solution is: ", rows);
+  });
+});
+//get all courses from database
+app.get("/api/course", (req, res) => {
+  //console.log("Courses:");
+  connection.query("SELECT * FROM course ", function(err, rows, fields) {
+    if (err) throw err;
+    res.status(200).json(rows);
   });
 });
 
