@@ -57,11 +57,21 @@ export default {
       text: "Course doesn't exist yet"
     };
   },
+  mounted: function() {
+    this.$store.dispatch("getCourse");
+  },
+  computed: {
+    courses() {
+      return this.$store.getters.course;
+    }
+  },
   methods: {
     itemList() {
-      //edwww
-
-      return ["Java"];
+      var temp = [];
+      this.$store.getters.course.forEach(element => {
+        temp.push(element.name);
+      });
+      return temp;
     },
     loadCourse(selected) {
       if (selected == "Java") {

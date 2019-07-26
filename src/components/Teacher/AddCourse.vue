@@ -1,6 +1,17 @@
 <template>
   <div>
-    <!-- <center><h1>Comming Soon</h1></center> -->
+    <v-snackbar
+      v-model="snackbar"
+      multi-line="multi-line"
+      right="right"
+      :timeout="timeout"
+      top="top"
+      color="orange"
+    >
+      <v-icon>warning</v-icon>
+      {{text}}
+      <v-btn color="white" flat @click="snackbar = false">Close</v-btn>
+    </v-snackbar>
     <v-container fluid>
       <v-layout justify-center class="my-5">
         <v-flex xs12 sm9>
@@ -35,6 +46,9 @@
 export default {
   data() {
     return {
+      snackbar: false,
+      text: "Please fill out the field!",
+      timeout: 2000,
       courseName: ""
     };
   },
@@ -44,7 +58,8 @@ export default {
         this.$store.dispatch("storeNewCourse", {
           name: this.courseName
         });
-        console.log(this.courseName);
+      } else {
+        this.snackbar = true;
       }
     }
   }
@@ -54,13 +69,4 @@ export default {
 
 
 <style scoped>
-.Disabled {
-  pointer-events: none;
-  cursor: not-allowed;
-  opacity: 0.65;
-  filter: alpha(opacity=65);
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
 </style>
-

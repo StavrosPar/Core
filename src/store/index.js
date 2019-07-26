@@ -30,7 +30,8 @@ export const store = new Vuex.Store({
     challengeOnceMCQ: [],
     challengeOnceCQ: null,
     challengeModuleMCQ: [],
-    challengeModuleCQ: null
+    challengeModuleCQ: null,
+    course: []
   },
   mutations: {
     //Setters
@@ -103,6 +104,9 @@ export const store = new Vuex.Store({
     },
     setChallengeModuleCQ(state, payload) {
       state.challengeModuleCQ = payload;
+    },
+    setCourse(state, payload) {
+      state.course = payload;
     }
   },
 
@@ -325,7 +329,7 @@ export const store = new Vuex.Store({
       axios.post(`http://localhost:5000/api/course/`, {
         name: payload.name
       });
-      commit("setLoading", fasle);
+      commit("setLoading", false);
     },
 
     //
@@ -462,6 +466,18 @@ export const store = new Vuex.Store({
 
       commit("setLoading", false);
     },
+    getCourse({ commit }) {
+      commit("setLoading", true);
+
+      axios
+        .get(`http://localhost:5000/api/course/`)
+        .then(response => {
+          console.log("Get Course", response.data);
+          commit("setCourse", response.data);
+        })
+        .catch(err => {});
+      commit("setLoading", false);
+    },
 
     //get the paths
     getPathModuleLVL({ commit }, payload) {
@@ -552,6 +568,9 @@ export const store = new Vuex.Store({
     },
     challengeModuleCQ(state) {
       return state.challengeModuleCQ;
+    },
+    course(state) {
+      return state.course;
     }
   }
 });
